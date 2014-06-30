@@ -778,6 +778,7 @@ dlfb_probe(struct usb_interface *interface, const struct usb_device_id *id)
 
 	printk("EDID XRES %d YRES %d\n", info->var.xres, info->var.yres);
 	if (info->var.xres == 0 || info->var.yres == 0) {
+		printk("Using resolution: 1280x1024\n");
 		info->var.xres = 1280;
 		info->var.yres = 1024;
 	}
@@ -854,6 +855,8 @@ dlfb_probe(struct usb_interface *interface, const struct usb_device_id *id)
 
 	draw_rect(dev_info, 0, 0, dev_info->info->var.xres,
 		  dev_info->info->var.yres, 0x30, 0xff, 0x30);
+	
+	printk("Taking default return\n");
 
 	return 0;
 
@@ -887,6 +890,7 @@ static void dlfb_disconnect(struct usb_interface *interface)
 	usb_put_dev(dev_info->udev);
 
 	if (dev_info->info) {
+		printk("Unregistering framebuffer\n");
 		unregister_framebuffer(dev_info->info);
 		fb_dealloc_cmap(&dev_info->info->cmap);
 		rvfree(dev_info->info->screen_base, dev_info->screen_size);
