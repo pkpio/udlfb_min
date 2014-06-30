@@ -858,12 +858,16 @@ dlfb_probe(struct usb_interface *interface, const struct usb_device_id *id)
 	return 0;
 
  out2:
+ 	printk("Taking out2\n");
 	fb_dealloc_cmap(&info->cmap);
  out1:
+ 	printk("Taking out1\n");
 	rvfree(info->screen_base, dev_info->screen_size);
  out0:
+ 	printk("Taking out0\n");
 	framebuffer_release(info);
  out:
+ 	printk("Taking out\n");
 	usb_set_intfdata(interface, NULL);
 	usb_put_dev(dev_info->udev);
 	kfree(dev_info);
