@@ -78,6 +78,8 @@ static int dlfb_mmap(struct fb_info *info, struct vm_area_struct *vma)
 	unsigned long offset = vma->vm_pgoff << PAGE_SHIFT;
 	unsigned long page, pos;
 
+	printk("dlfb_mmap called\n");	
+	
 	printk("MMAP: %lu %u\n", offset + size, info->fix.smem_len);
 
 	if (offset + size > info->fix.smem_len)
@@ -566,6 +568,8 @@ static void dlfb_copyarea(struct fb_info *info, const struct fb_copyarea *area)
 {
 
 	struct dlfb_data *dev = info->par;
+	
+	printk("dlfb_copyarea called\n");
 
 	copyarea(dev, area->dx, area->dy, area->sx, area->sy, area->width,
 		 area->height);
@@ -579,6 +583,9 @@ static void dlfb_imageblit(struct fb_info *info, const struct fb_image *image)
 
 	int ret;
 	struct dlfb_data *dev = info->par;
+	
+	printk("dlfb_imageblit called\n");
+	
 	/* printk("IMAGE BLIT (1) %d %d %d %d DEPTH %d {%p}!!!\n", image->dx, image->dy, image->width, image->height, image->depth, dev->udev); */
 	cfb_imageblit(info, image);
 	ret =
@@ -592,6 +599,8 @@ static void dlfb_fillrect(struct fb_info *info, const struct fb_fillrect *region
 
 	unsigned char red, green, blue;
 	struct dlfb_data *dev = info->par;
+	
+	printk("dlfb_fillrect called\n");
 
 	memcpy(&red, &region->color, 1);
 	memcpy(&green, &region->color + 1, 1);
@@ -608,6 +617,7 @@ static int dlfb_ioctl(struct fb_info *info, unsigned int cmd, unsigned long arg)
 	struct dlfb_data *dev_info = info->par;
 	struct dloarea *area = NULL;
 	
+	printk("dlfb_ioctl called\n");	
 
 	if (cmd == 0xAD) {
 		char *edid = (char *)arg;
@@ -667,6 +677,8 @@ dlfb_setcolreg(unsigned regno, unsigned red, unsigned green,
 	       unsigned blue, unsigned transp, struct fb_info *info)
 {
 	int err = 0;
+	
+	printk("dlfb_setcolreg called\n");
 
 	if (regno >= info->cmap.len)
 		return 1;
@@ -691,6 +703,9 @@ dlfb_setcolreg(unsigned regno, unsigned red, unsigned green,
 static int dlfb_release(struct fb_info *info, int user)
 {
 	struct dlfb_data *dev_info = info->par;
+	
+	printk("dlfb_release called\n");
+	
 	image_blit(dev_info, 0, 0, info->var.xres, info->var.yres,
 		   info->screen_base);
 	return 0;
@@ -700,6 +715,8 @@ static int dlfb_blank(int blank_mode, struct fb_info *info)
 {
 	struct dlfb_data *dev_info = info->par;
 	char *bufptr = dev_info->buf;
+	
+	printk("dlfb_blank called\n");
 
 	bufptr = dlfb_set_register(bufptr, 0xFF, 0x00);
 	if (blank_mode != FB_BLANK_UNBLANK) {
