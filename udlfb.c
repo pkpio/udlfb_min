@@ -24,6 +24,12 @@
 
 #include "udlfb.h"
 
+#define VID	0x18d1	//VID in ADK + ADB mode
+#define PID	0x4ee2	//PID in ADK + ADB mode
+#define CL	0xff	//Class
+#define SC	0x42	//Subclass
+#define PR	0x01	//Protocol
+
 #define DRIVER_VERSION "DLFB 0.2"
 
 /* memory functions taken from vfb */
@@ -112,7 +118,7 @@ static struct usb_device_id id_table [] = {
 
 static struct usb_device_id id_table[] = {
 	{.idVendor = 0x17e9, .match_flags = USB_DEVICE_ID_MATCH_VENDOR,},
-	{ USB_DEVICE(0x18d1, 0x4ee2) },//Nexus 10
+	{ USB_DEVICE_AND_INTERFACE_INFO(VID, PID, CL, SC, PR) },
 	{},
 };
 MODULE_DEVICE_TABLE(usb, id_table);
