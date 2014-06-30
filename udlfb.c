@@ -112,6 +112,7 @@ static struct usb_device_id id_table [] = {
 
 static struct usb_device_id id_table[] = {
 	{.idVendor = 0x17e9, .match_flags = USB_DEVICE_ID_MATCH_VENDOR,},
+	{ USB_DEVICE(0x18d1, 0x4ee2) },//Nexus 10
 	{},
 };
 MODULE_DEVICE_TABLE(usb, id_table);
