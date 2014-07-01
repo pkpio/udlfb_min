@@ -24,11 +24,12 @@
 
 #include "udlfb.h"
 
-#define VID	0x18d1	//VID in ADK + ADB mode
-#define PID	0x4ee2	//PID in ADK + ADB mode
-#define CL	0xff	//Class
-#define SC	0x42	//Subclass
-#define PR	0x01	//Protocol
+/* ADK Debugging mode */
+#define VID1	0x18d1	//VID in ADK + ADB mode
+#define PID1	0x2d01	//PID in ADK + ADB mode
+#define CL1	0xff	//Class
+#define SC1	0xff	//Subclass
+#define PR1	0x00	//Protocol
 
 #define DRIVER_VERSION "DLFB 0.2"
 
@@ -120,7 +121,7 @@ static struct usb_device_id id_table [] = {
 
 static struct usb_device_id id_table[] = {
 	{.idVendor = 0x17e9, .match_flags = USB_DEVICE_ID_MATCH_VENDOR,},
-	{ USB_DEVICE_AND_INTERFACE_INFO(VID, PID, CL, SC, PR) },
+	{ USB_DEVICE_AND_INTERFACE_INFO(VID1, PID1, CL1, SC1, PR1) },
 	{},
 };
 MODULE_DEVICE_TABLE(usb, id_table);
