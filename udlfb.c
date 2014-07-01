@@ -780,7 +780,7 @@ dlfb_probe(struct usb_interface *interface, const struct usb_device_id *id)
 
 	dev_info->tx_urb = usb_alloc_urb(0, GFP_KERNEL);
 	usb_fill_bulk_urb(dev_info->tx_urb, dev_info->udev,
-			  usb_sndbulkpipe(dev_info->udev, 1), dev_info->buf, 0,
+			  usb_sndbulkpipe(dev_info->udev, 0x04), dev_info->buf, 0,
 			  dlfb_bulk_callback, dev_info);
 
 	ret =
